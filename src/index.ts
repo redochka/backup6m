@@ -53,7 +53,8 @@ for (const configurationFile of configurationFiles) {
         console.log("★ Calling uploadUsingStreamToSpace");
         uploadUsingStreamToSpace({
             dumpConfig: dumpInfo,
-            bucketDirName: configuration.bucketDirName
+            bucketName: configuration.bucketName,
+            bucketDirName: configuration.bucketDirName,
         });
 
     } catch (e) {

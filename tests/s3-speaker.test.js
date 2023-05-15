@@ -18,3 +18,22 @@ test('Test upload using fs stream', done => {
     }
     s3Speaker.uploadUsingStreamToSpace({dumpInfo : dumpInfo, onComplete : done});
 });
+
+test('Test upload to wasabi', done => {
+
+    function callback(data) {
+        try {
+            done();
+        } catch (error) {
+            done(error);
+        }
+    }
+
+    process.env.BUCKET_DIR_NAME = "cazasouq-bucket"
+
+    const dumpInfo = {
+        "gzipName": "cron.log",
+        "dumpName": "avoid ts warning"
+    }
+    s3Speaker.uploadUsingStreamToSpace({dumpInfo: dumpInfo, onComplete: done});
+});
