@@ -31,7 +31,7 @@ const buildDumpInfo = function (dbName: string): B6MDump {
 for (const configurationFile of configurationFiles) {
     try {
         let fileContents = fs.readFileSync(configurationFile, 'utf8');
-        let configuration = yaml.safeLoad(fileContents) as B6MConfig;
+        let configuration = yaml.load(fileContents) as B6MConfig;
         console.log(configuration);
 
         if (configuration.skipRun) {
