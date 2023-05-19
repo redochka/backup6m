@@ -10,17 +10,37 @@ jobs:
     steps:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🔎 The name of your branch is ${{ github.ref }}"
+
       - name: Check out repository code
         uses: actions/checkout@v3
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - name: Launching the backup6m docker
-        env:
-          DOCKER_HUB_USER: ${{ secrets.DOCKER_HUB_USER }}
-          DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
-        run: |
-          docker build -t backup6m .
-          MY_VERSION=v$GITHUB_REF_NAME
-          docker tag backup6m redochka/myrepo:backup6m-$MY_VERSION
-          echo "Going to push to redochka/myrepo:backup6m-$MY_VERSION"
-          docker push redochka/myrepo:backup6m-$MY_VERSION
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USER }}
+          password: ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+      -
+        name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ secrets.DOCKER_HUB_REPO_NAME }}/backup6m
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+#          labels: ${{ steps.meta.outputs.labels }}
+
+#        run: |
+#          docker build -t backup6m .
+#          MY_VERSION=v$GITHUB_REF_NAME
+#          docker tag backup6m ${{ secrets.DOCKER_HUB_REPO_NAME }}:backup6m-$MY_VERSION
+#          echo "Going to push to ${{ secrets.DOCKER_HUB_REPO_NAME }}:backup6m-$MY_VERSION"
+#          docker push ${{ secrets.DOCKER_HUB_REPO_NAME }}:backup6m-$MY_VERSION
       - run: echo "🍏 This job's status is ${{ job.status }}."
