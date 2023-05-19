@@ -26,7 +26,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{ secrets.DOCKER_HUB_REPO_NAME }}/backup6m
+          images: ${{ secrets.DOCKER_HUB_REPO_NAME }}:backup6m-v
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
