@@ -28,7 +28,7 @@ jobs:
         with:
           images: ${{ secrets.DOCKER_HUB_REPO_NAME }}
           flavor: |
-            prefix: backup6m-v
+            prefix=backup6m-v
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v4
