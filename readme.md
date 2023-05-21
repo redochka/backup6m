@@ -4,11 +4,16 @@ Backup MySQL/MariaDB database and upload to S3
 - Compress the dump
 - Upload to S3 (digitalocean)
 
-You can provide configuration of Host to be backed up in yaml format. Put the configuration in the `mount/b6m-config` directory (see samples there). 
+You can provide configuration of Host to be backed up in yaml format. 
+Put the configuration in the `mount/b6m-config` directory (see samples there). 
 
-See available configuration in the `src/types/B6MConfig` file. 
+See available configuration in the `src/types/B6MConfig` file.
 
-- Run :
+
+
+### Run :
+
+A `.env` file is required for S3 uploads. See `.env.sample`
 
 ```sh
 yarn install

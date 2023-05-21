@@ -6,7 +6,7 @@ import moment from "moment";
 import * as ConfigLoader from "./config-loader"
 import {dbBackup} from "./dump-helper";
 import {gzip} from "./gzip-helper";
-import {uploadUsingStreamToSpace} from "./s3-speaker";
+import {uploadUsingStreamToSpace} from "./s3-upload-manager";
 
 // override console.log
 require('log-timestamp')(function() { return `${new Date().toISOString()} %s` });
@@ -55,6 +55,8 @@ for (const configurationFile of configurationFiles) {
             dumpConfig: dumpInfo,
             bucketName: configuration.bucketName,
             bucketDirName: configuration.bucketDirName,
+        }).then(() => {
+            //done
         });
 
     } catch (e) {

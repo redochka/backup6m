@@ -15,5 +15,5 @@ export function dbBackup({databaseConfig, dumpInfo}: { databaseConfig: DatabaseC
     // const cmd = 'mysqldump -u ' + dbOptions.user + __pass__ + ' --skip-lock-tables ' + dbOptions.database + " > " + dumpInfo.dumpName;
     const cmd = `mysqldump -h ${databaseConfig.hostname} -u ${databaseConfig.username} ${__pass__} --skip-lock-tables ${databaseConfig.dbName} > ${dest}`;
 
-    execCommand(cmd);
+    execCommand(cmd, true);
 }

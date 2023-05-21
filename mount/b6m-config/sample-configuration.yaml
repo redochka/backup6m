@@ -10,9 +10,3 @@ gzip: true
 
 uploadToS3: false
 uploadToServer: true
-
-sshServer:
-  hostname: uXXX968.your-storagebox.de
-  username: uXXX968-sub1
-  password: LvtuR6A1F3OXXXXX
-  port: 23

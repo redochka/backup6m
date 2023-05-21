@@ -1,11 +1,15 @@
 const shell = require('shelljs');
 
-export function execCommand(cmd: string) {
+export function execCommand(cmd: string, exitOnError: boolean = true) {
     console.log("★ Command: ", cmd);
     shell.exec(cmd);
     if (shell.error()) {
         console.error("✘ Aborting!\n", shell.error());
-        process.exit();
+        if (exitOnError) {
+            process.exit();
+        }
+        return false;
     }
+    return true;
 }
 
