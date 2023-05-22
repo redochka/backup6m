@@ -1,4 +1,4 @@
-FROM node:12.19.0-buster-slim
+FROM node:16-bullseye-slim
 
 RUN apt-get update
 RUN apt-get install -y mariadb-client
