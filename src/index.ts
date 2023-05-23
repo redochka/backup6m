@@ -7,6 +7,9 @@ import * as ConfigLoader from "./config-loader"
 import {dbBackup} from "./dump-helper";
 import {gzip} from "./gzip-helper";
 import {uploadUsingStreamToSpace} from "./s3-upload-manager";
+import {uploadByScp} from "./scp-manager";
+import shell from "shelljs";
+import path from "path";
 
 // override console.log
 require('log-timestamp')(function() { return `${new Date().toISOString()} %s` });
@@ -16,7 +19,7 @@ const configurationFiles = ConfigLoader.loadConfigurationFiles();
 
 const date = moment().format("YYYY_MM_DD\TH_mm_ss");
 
-const buildDumpInfo = function (dbName: string): B6MDump {
+const buildBackupConfig = function (dbName: string): BackupConfig {
     const name = "dump_" + dbName + "_" + date;
     return {
         "dumpName": `${name}.sql`,
@@ -39,25 +42,31 @@ for (const configurationFile of configurationFiles) {
             continue;
         }
 
-        let dumpInfo = buildDumpInfo(configuration.databaseConfig.dbName);
+        let backupConfig = buildBackupConfig(configuration.databaseConfig.dbName);
 
         console.log("★ Calling dbBackup");
         dbBackup({
             databaseConfig: configuration.databaseConfig,
-            dumpInfo
+            dumpInfo: backupConfig
         });
 
-        console.log("★ Calling gzip on: ", dumpInfo);
-        gzip(dumpInfo);
+        console.log("★ Calling gzip on: ", backupConfig);
+        gzip(backupConfig);
 
         console.log("★ Calling uploadUsingStreamToSpace");
         uploadUsingStreamToSpace({
-            dumpConfig: dumpInfo,
+            dumpConfig: backupConfig,
             bucketName: configuration.bucketName,
             bucketDirName: configuration.bucketDirName,
         }).then(() => {
             //done
         });
+
+        uploadByScp(backupConfig, configuration.bucketName, configuration.bucketDirName);
+
+        console.log("★ Going to delete the gzip");
+        const localTarget = path.join(backupConfig.dumpPath, backupConfig.gzipName);
+        shell.rm('-rf', localTarget);
 
     } catch (e) {
         console.log(e);

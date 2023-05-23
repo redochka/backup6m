@@ -1,7 +1,7 @@
 import {execCommand} from "./shell-helper";
 import shell from 'shelljs';
-import * as dotenv from 'dotenv'
-import path from "path"; // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+import * as dotenv from 'dotenv';
+import path from "path";
 dotenv.config({
     path: "./mount/credentials/.env"
 });
@@ -11,7 +11,7 @@ const username = process.env.HETZNER_USERNAME;
 const password = process.env.HETZNER_PASSWORD;
 const port = process.env.HETZNER_PORT || 22;
 
-export const uploadByScp = function (dumpConfig: B6MDump, bucketName: string, bucketDirName: string,) {
+export const uploadByScp = function (dumpConfig: BackupConfig, bucketName: string, bucketDirName: string,) {
 
     const localTarget = path.join(dumpConfig.dumpPath, dumpConfig.gzipName);
 

@@ -2,7 +2,7 @@ import {execCommand} from "./shell-helper";
 import * as path from "path";
 import {DatabaseConfig} from "./types/B6MConfig";
 
-export function dbBackup({databaseConfig, dumpInfo}: { databaseConfig: DatabaseConfig, dumpInfo: B6MDump }) {
+export function dbBackup({databaseConfig, dumpInfo}: { databaseConfig: DatabaseConfig, dumpInfo: BackupConfig }) {
 
     let __pass__ = "";
     if (databaseConfig.password) {

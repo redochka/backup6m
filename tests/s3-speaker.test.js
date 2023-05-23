@@ -4,8 +4,6 @@ const {uploadByScp} = require("../src/scp-manager");
 
 test('Test upload using fs stream', async () => {
 
-    process.env.BUCKET_DIR_NAME = "testdell"
-
     const dumpInfo = {
         "gzipName" : "cron.log",
         "dumpName" : "avoid ts warning"

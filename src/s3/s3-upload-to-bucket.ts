@@ -23,5 +23,7 @@ export const uploadToBucket = async (bucketName: string, remoteFilepath: string,
         return data;
     } catch (err) {
         console.log("Error", err);
-    }};
+    }
+
+};
 

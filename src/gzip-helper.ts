@@ -1,7 +1,7 @@
 import {execCommand} from "./shell-helper";
 import * as path from 'path';
 
-export function gzip(dumpConfig: B6MDump) {
+export function gzip(dumpConfig: BackupConfig) {
 
     let dest = path.join(dumpConfig.dumpPath, dumpConfig.dumpName);
 

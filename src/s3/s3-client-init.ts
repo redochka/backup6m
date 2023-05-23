@@ -1,6 +1,7 @@
 import {S3} from "@aws-sdk/client-s3";
 
-import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+import * as dotenv from 'dotenv'
+
 dotenv.config({
     path: "./mount/credentials/.env"
 });
@@ -16,14 +17,11 @@ const s3Client = new S3({
         accessKeyId: accessKeyId,
         secretAccessKey: secretAccessKey
     }
-    // not working, bug issue created on aws
-    /*    credentials: fromIni({
+    // not working, bug issue created on aws: https://github.com/aws/aws-sdk-js-v3/issues/4740
+/*    credentials: fromIni({
         // filepath: '/home/reda/dev/js/backup6m/mount/credentials/s3-credentials.ini',
         filepath: '/home/reda/dev/js/backup6m/mount/credentials/credentials.ini',
-        // filepath: './mount/credentials/credentials.ini',
-        // configFilepath: './',
-        // filepath: './credentials.ini',
-        profile: 'test',
+        profile: 'test'
     }),*/
 });
 
