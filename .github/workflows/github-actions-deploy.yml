@@ -37,7 +37,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: ${{ steps.meta.outputs.tags }},${{ secrets.DOCKER_HUB_REPO_NAME }}:backup6m-latest
 #          labels: ${{ steps.meta.outputs.labels }}
 
 #        run: |
