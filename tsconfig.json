@@ -5,6 +5,7 @@
     "preserveConstEnums": true,
     "outDir": "dist",
     "allowJs": true,
+    "module": "ES2022"
   },
 
   "include": [

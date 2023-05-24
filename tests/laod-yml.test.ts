@@ -1,4 +1,3 @@
-import {B6MConfig} from "../src/types/B6MConfig";
 import {loadConfigurationFiles} from "../src/config-loader";
 
 const fs = require('fs');

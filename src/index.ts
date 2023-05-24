@@ -54,7 +54,7 @@ for (const configurationFile of configurationFiles) {
         gzip(backupConfig);
 
         console.log("★ Calling uploadUsingStreamToSpace");
-        uploadUsingStreamToSpace({
+        await uploadUsingStreamToSpace({
             dumpConfig: backupConfig,
             bucketName: configuration.bucketName,
             bucketDirName: configuration.bucketDirName,
