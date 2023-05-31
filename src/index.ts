@@ -1,7 +1,4 @@
 import {B6MConfig} from "./types/B6MConfig";
-
-const fs = require('fs');
-const yaml = require('js-yaml');
 import moment from "moment";
 import * as ConfigLoader from "./config-loader"
 import {dbBackup} from "./dump-helper";
@@ -12,7 +9,13 @@ import shell from "shelljs";
 import path from "path";
 
 // override console.log
-require('log-timestamp')(function() { return `${new Date().toISOString()} %s` });
+import fs from "fs";
+
+import yaml from "js-yaml";
+
+// require('log-timestamp')(function() { return `${new Date().toISOString()} %s` });
+// import log_timestamp from "log-timestamp";
+// log_timestamp(function() { return `${new Date().toISOString()} %s` });
 
 
 const configurationFiles = ConfigLoader.loadConfigurationFiles();
