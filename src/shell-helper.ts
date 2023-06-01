@@ -1,4 +1,4 @@
-const shell = require('shelljs');
+import shell from "shelljs";
 
 export function execCommand(cmd: string, exitOnError: boolean = true) {
     console.log("★ Command: ", cmd);

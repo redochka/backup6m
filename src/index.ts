@@ -47,29 +47,29 @@ for (const configurationFile of configurationFiles) {
 
         let backupConfig = buildBackupConfig(configuration.databaseConfig.dbName);
 
-        console.log("★ Calling dbBackup");
-        dbBackup({
-            databaseConfig: configuration.databaseConfig,
-            dumpInfo: backupConfig
-        });
+            console.log("★ Calling dbBackup");
+            dbBackup({
+                databaseConfig: configuration.databaseConfig,
+                dumpInfo: backupConfig
+            });
 
-        console.log("★ Calling gzip on: ", backupConfig);
-        gzip(backupConfig);
+            console.log("★ Calling gzip on: ", backupConfig);
+            gzip(backupConfig);
 
-        console.log("★ Calling uploadUsingStreamToSpace");
-        await uploadUsingStreamToSpace({
-            dumpConfig: backupConfig,
-            bucketName: configuration.bucketName,
-            bucketDirName: configuration.bucketDirName,
-        }).then(() => {
-            //done
-        });
+            console.log("★ Calling uploadUsingStreamToSpace");
+            await uploadUsingStreamToSpace({
+                dumpConfig: backupConfig,
+                bucketName: configuration.bucketName,
+                bucketDirName: configuration.bucketDirName,
+            }).then(() => {
+                //done
+            });
 
-        uploadByScp(backupConfig, configuration.bucketName, configuration.bucketDirName);
+            uploadByScp(backupConfig, configuration.bucketName, configuration.bucketDirName);
 
-        console.log("★ Going to delete the gzip");
-        const localTarget = path.join(backupConfig.dumpPath, backupConfig.gzipName);
-        shell.rm('-rf', localTarget);
+            console.log("★ Going to delete the gzip");
+            const localTarget = path.join(backupConfig.dumpPath, backupConfig.gzipName);
+            shell.rm('-rf', localTarget);
 
     } catch (e) {
         console.log(e);

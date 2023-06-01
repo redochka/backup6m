@@ -33,3 +33,10 @@ docker build -t backup6m .
 docker run -v /path/to/backup6m/mount:/app/mount backup6m
 ```
 
+### Developer notes
+
+Why `--experimental-specifier-resolution=node` in `npm start` in `package.json`
+
+This is to avoid add `.js` to import statements.
+
+see: https://github.com/microsoft/TypeScript/issues/41887
