@@ -1,7 +1,7 @@
 import {execCommand} from "./shell-helper";
-import shell from 'shelljs';
 import * as dotenv from 'dotenv';
 import path from "path";
+
 dotenv.config({
     path: "./mount/credentials/.env"
 });
@@ -21,7 +21,7 @@ export const uploadByScp = function (dumpConfig: BackupConfig, bucketName: strin
 
     if (result) {
         console.log(`★ Successfully uploaded data ${remoteTarget}`);
-        console.log("★ Going to delete the gzip");
-        shell.rm('-rf', localTarget);
     }
+
+    return result;
 };
