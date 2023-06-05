@@ -57,27 +57,19 @@ for (const configurationFile of configurationFiles) {
         gzip(backupConfig);
 
         console.log("★ Calling uploadUsingStreamToSpace");
-        await uploadUsingStreamToSpace({
+        const result1 = await uploadUsingStreamToSpace({
             dumpConfig: backupConfig,
             bucketName: configuration.bucketName,
             bucketDirName: configuration.bucketDirName,
-        }).then(() => {
-            //done
-        });
+        })
 
-        const result = uploadByScp(backupConfig, configuration.bucketName, configuration.bucketDirName);
-        console.log("result is:", result);
+        const result2 = uploadByScp(backupConfig, configuration.bucketName, configuration.bucketDirName);
 
-        /*
-            if (result) {
-                console.log(`★ Successfully uploaded data ${remoteTarget}`);
-                console.log("★ Going to delete the gzip");
-                shell.rm('-rf', localTarget);
-            }
-        */
-        console.log("★ Going to delete the gzip");
-        const localTarget = path.join(backupConfig.dumpPath, backupConfig.gzipName);
-        shell.rm('-rf', localTarget);
+        if (result1 || result2) {
+            console.log("★ Going to delete the gzip");
+            const localTarget = path.join(backupConfig.dumpPath, backupConfig.gzipName);
+            shell.rm('-rf', localTarget);
+        }
 
     } catch (e) {
         console.log(e);

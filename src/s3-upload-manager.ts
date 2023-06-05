@@ -25,4 +25,6 @@ export async function uploadUsingStreamToSpace({
     await uploadToBucket(bucketName, myKey, body);
 
     console.log(`★ Successfully uploaded data to bucket: ${bucketName} under the following key: ${myKey}`);
+
+    return true;
 }
